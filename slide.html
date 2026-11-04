@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trình chiếu Hiệu ứng Động 3D – SKKN Âm nhạc Dân tộc Thái (THCS Hữu Kiệm)</title>
+<style>
+  :root {
+    --navy: #162a45;
+    --crimson: #9e1b1b;
+    --teal: #0e7490;
+    --gold: #d97706;
+    --gold-light: #fde68a;
+    --cream: #fdfbf7;
+    --ink: #1e293b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: radial-gradient(circle at 20% 20%, #1e3a5f 0%, #0f172a 100%);
+    color: var(--ink);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  header.deck-bar {
+    height: 54px;
+    background: rgba(15, 23, 42, 0.92);
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: #fff;
+    z-index: 20;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .brand-badge {
+    background: var(--crimson);
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+  }
+  .deck-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-btn {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(253, 230, 138, 0.4);
+    padding: 6px 13px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover {
+    background: var(--crimson);
+    border-color: var(--gold-light);
+  }
+  .slide-counter {
+    font-weight: 700;
+    color: var(--gold-light);
+    font-size: 13px;
+    min-width: 70px;
+    text-align: center;
+  }
+  main.deck-stage {
+    flex: 1;
+    position: relative;
+    perspective: 1400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 28px;
+  }
+  section.slide {
+    position: absolute;
+    width: min(1360px, 95vw);
+    height: min(760px, calc(100vh - 96px));
+    background: var(--cream);
+    border-radius: 18px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.55);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(90px, 0, -140px) rotateY(-8deg) scale(0.94);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+  }
+  section.slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+    z-index: 5;
+  }
+  section.slide.prev {
+    opacity: 0;
+    transform: translate3d(-90px, 0, -140px) rotateY(8deg) scale(0.94);
+  }
+  .slide-hdr {
+    background: linear-gradient(90deg, var(--navy) 0%, #23456e 100%);
+    padding: 14px 24px;
+    border-bottom: 4px solid var(--gold);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .slide-hdr-left {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .slide-tag {
+    display: inline-block;
+    background: var(--crimson);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 99px;
+    width: fit-content;
+  }
+  .slide-title {
+    font-size: 21px;
+    font-weight: 800;
+    color: #ffffff;
+  }
+  .slide-sub {
+    font-size: 12.5px;
+    color: var(--gold-light);
+    font-style: italic;
+  }
+  .slide-body {
+    flex: 1;
+    padding: 18px 24px;
+    display: grid;
+    gap: 16px;
+    overflow-y: auto;
+  }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-left-wide { grid-template-columns: 1.25fr 0.95fr; }
+  .grid-right-wide { grid-template-columns: 0.92fr 1.28fr; }
+
+  .anim-card {
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-top: 4px solid var(--teal);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  section.slide.active .anim-card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  section.slide.active .anim-card:nth-child(1) { transition-delay: 0.10s; }
+  section.slide.active .anim-card:nth-child(2) { transition-delay: 0.22s; }
+  section.slide.active .anim-card:nth-child(3) { transition-delay: 0.34s; }
+  section.slide.active .anim-card:nth-child(4) { transition-delay: 0.46s; }
+
+  .anim-card.crimson { border-top-color: var(--crimson); }
+  .anim-card.gold { border-top-color: var(--gold); }
+  .anim-card.navy { border-top-color: var(--navy); }
+
+  .anim-card h3 {
+    font-size: 15.5px;
+    color: var(--navy);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .anim-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .anim-card li {
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: #334155;
+  }
+  .anim-card li strong {
+    color: var(--crimson);
+  }
+  .img-frame {
+    width: 100%;
+    height: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1.5px solid #d5c7ad;
+    background: #fff;
+  }
+  .photo-cover {
+    width: 100%;
+    height: 255px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid var(--gold);
+    margin-bottom: 8px;
+  }
+  iframe.live-lab {
+    width: 100%;
+    height: 100%;
+    min-height: 540px;
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    background: #f5f1e6;
+  }
+  video.live-vid {
+    width: 100%;
+    max-height: 510px;
+    border-radius: 12px;
+    background: #000;
+    border: 2px solid var(--gold);
+  }
+  .progress-bar {
+    height: 5px;
+    background: rgba(255,255,255,0.12);
+    width: 100%;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--crimson), var(--gold));
+    width: 10%;
+    transition: width 0.35s ease;
+  }
+</style>
+</head>
+<body>
+  <header class="deck-bar">
+    <div class="brand">
+      <span class="brand-badge">SKKN ÂM NHẠC 2026–2027</span>
+      <span>Trường PTDTBT THCS Hữu Kiệm • GV: Vi Thị Nhung • Dân ca &amp; Dân vũ Thái + Công nghệ 3D / GitHub</span>
+    </div>
+    <div class="deck-controls">
+      <button class="nav-btn" id="btnPrevSlide" type="button">◀ Slide trước</button>
+      <span class="slide-counter" id="slideCounter">01 / 11</span>
+      <button class="nav-btn" id="btnNextSlide" type="button">Slide tiếp ▶</button>
+      <button class="nav-btn" id="btnFullscreen" type="button">⛶ Toàn màn hình</button>
+    </div>
+  </header>
+  <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+  <main class="deck-stage">
+    <!-- SLIDE 1: TRANG BÌA ĐỘNG -->
+    <section class="slide active">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">SỞ GIÁO DỤC VÀ ĐÀO TẠO NGHỆ AN • UBND XÃ HỮU KIỆM</span>
+          <div class="slide-title">MỘT SỐ BIỆN PHÁP ĐƯA DÂN CA, DÂN VŨ DÂN TỘC THÁI VÀO DẠY HỌC MÔN ÂM NHẠC</div>
+          <div class="slide-sub">Nhằm bảo tồn văn hóa và tăng hứng thú học tập cho học sinh tại Trường PTDTBT THCS Hữu Kiệm</div>
+        </div>
+      </div>
+      <div class="slide-body grid-left-wide">
+        <div class="anim-card crimson" style="display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <h3>🌺 Tác giả &amp; Giá trị Cốt lõi của Sáng kiến</h3>
+            <ul>
+              <li>• <strong>Tác giả:</strong> Cô giáo Vi Thị Nhung – Giáo viên Âm nhạc, Trường PTDTBT THCS Hữu Kiệm, xã Hữu Kiệm, tỉnh Nghệ An.</li>
+              <li>• <strong>Hồn cốt Truyền thống giữ nguyên:</strong> Khai thác các làn điệu <em>Khắp, Lăm, Nhuôn, Xuối, Ứ noọng</em> và nghệ thuật gõ <em>Khắc luống (Típ luống), Múa Xòe khăn piêu, Nhảy sạp, Khèn bè Thái</em> tại bản Na Chảo, bản Na Lượng (Di tích cấp tỉnh Đền Pu Nhạ Thầu).</li>
+              <li>• <strong>Chiều sâu Khoa học (GitHub &amp; 3D):</strong> Tích hợp ký âm Ngũ cung vector SVG (<code>VexFlow/abcjs</code>), thuật toán đo cao độ <code>YIN Pitch Detection f₀</code>, bộ chấm điểm gõ nhịp <code>Onset Δt (ms)</code> và không gian <code>Three.js 3D</code> chạy 100% Offline.</li>
+              <li>• <strong>Hiệu quả thực nghiệm (N = 120 HS):</strong> Mức độ hứng thú đạt <strong>93,3%</strong> (+51,6%), kỹ năng gõ nhịp Khắc luống &amp; dân vũ đạt <strong>84,2%</strong> (+55,0%).</li>
+            </ul>
+          </div>
+          <div style="background:#fef2f2;border:1px solid #fecaca;padding:10px 12px;border-radius:8px;font-size:12.5px;color:#9e1b1b;font-weight:600;">
+            💡 Sử dụng phím mũi tên ◀ ▶ trên bàn phím hoặc nút điều hướng phía trên để trình chiếu các Slide hiệu ứng động!
+          </div>
+        </div>
+        <div class="anim-card gold">
+          <img class="photo-cover" src="HINH_ANH_MINH_HOA/Hinh_09_Thuc_te_Le_hoi_Den_Pu_Nha_Thau_Khac_luong.jpg" alt="Khắc luống và Vòng Xòe Thái">
+          <img class="photo-cover" style="margin-bottom:0;" src="HINH_ANH_MINH_HOA/Hinh_10_Thuc_te_Nghe_nhan_Khen_be_va_Nhay_sap_Huu_Kiem.jpg" alt="Nghệ nhân Khèn bè và Nhảy sạp">
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: BỐI CẢNH ĐỊA PHƯƠNG & HÌNH ẢNH THỰC TẾ -->
+    <section class="slide">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">PHẦN I. ĐẶT VẤN ĐỀ &amp; KHÔNG GIAN DI SẢN</span>
+          <div class="slide-title">Không gian Văn hóa Thái Xã Hữu Kiệm &amp; Thực tế sau Sáp nhập Trường</div>
+          <div class="slide-sub">Kết nối di sản bản Na Chảo, Na Lượng (Đền Pu Nhạ Thầu), Xốp Thặp với Trường PTDTBT THCS Hữu Kiệm</div>
+        </div>
+      </div>
+      <div class="slide-body grid-2">
+        <div class="anim-card navy">
+          <img class="img-frame" style="height:290px;" src="HINH_ANH_MINH_HOA/Hinh_01_Khong_gian_van_hoa_Thai_Huu_Kiem.png" alt="Bản đồ không gian văn hóa Thái Hữu Kiệm">
+          <h3 style="margin-top:10px;">1. Đặc thù Trường PTDTBT THCS Hữu Kiệm (2026–2027)</h3>
+          <ul>
+            <li>• Thành lập theo <strong>QĐ số 407/QĐ-UBND ngày 25/8/2026</strong> trên cơ sở sáp nhập PTDTBT THCS Hữu Kiệm và PTDTBT THCS Bảo Nam.</li>
+            <li>• Học sinh đa dân tộc (Thái, Khơ Mú, H'Mông) cùng học tập, sinh hoạt bán trú; cần phương pháp trực quan để mọi dân tộc đều dễ hòa nhập.</li>
+          </ul>
+        </div>
+        <div class="anim-card crimson">
+          <img class="photo-cover" style="height:290px;" src="HINH_ANH_MINH_HOA/Hinh_09_Thuc_te_Le_hoi_Den_Pu_Nha_Thau_Khac_luong.jpg" alt="Thực tế Khắc luống">
+          <h3>2. Hồn cốt Di sản Thái tại Bản làng Hữu Kiệm</h3>
+          <ul>
+            <li>• <strong>Lễ hội Đền Pu Nhạ Thầu (bản Na Lượng):</strong> Rộn rã tiếng chày <em>Khắc luống (Típ luống)</em> nhịp 2/4 và <em>Vòng Xòe khăn piêu</em>.</li>
+            <li>• <strong>Khảo sát đầu vào (N=120 HS):</strong> Chỉ <strong>34,2%</strong> nhận diện đúng đặc trưng làn điệu/nhạc cụ và <strong>29,2%</strong> gõ đúng tiết tấu Khắc luống.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: KIẾN TRÚC KHOA HỌC MÃ NGUỒN MỞ GITHUB -->
+    <section class="slide">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">PHẦN II. CHIỀU SÂU KHOA HỌC (GITHUB OPEN-SOURCE STACK)</span>
+          <div class="slide-title">Ứng dụng Khoa học Âm nhạc Mã nguồn mở GitHub Giữ gìn Hồn cốt Ngũ cung Thái</div>
+          <div class="slide-sub">Kết hợp VexFlow/abcjs · YIN Pitch Detection · Meyda/Essentia Onset · Three.js 3D WebGL</div>
+        </div>
+      </div>
+      <div class="slide-body" style="grid-template-columns: 1fr;">
+        <div class="anim-card gold" style="display:flex;align-items:center;justify-content:center;">
+          <img class="img-frame" style="max-height:575px;" src="HINH_ANH_MINH_HOA/Hinh_11_Kien_truc_Khoa_hoc_GitHub_Am_nhac_Thai.png" alt="Kiến trúc Khoa học GitHub">
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: PHÂN TÍCH ÂM HỌC THANG 5 ÂM & TIẾT TẤU KHẮC LUỐNG -->
+    <section class="slide">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">CƠ SỞ ÂM HỌC DÂN TỘC</span>
+          <div class="slide-title">Cấu trúc Thang 5 âm (Ngũ cung Thái) &amp; Mã hóa Tiết tấu Khắc luống – Nhảy sạp</div>
+          <div class="slide-sub">Chuyển hóa tiếng chày gỗ Tùng – Cắc thành bài tập Body Percussion vừa sức học sinh THCS</div>
+        </div>
+      </div>
+      <div class="slide-body grid-right-wide">
+        <div class="anim-card crimson">
+          <h3>🎼 Công thức &amp; Cấu trúc Âm nhạc Thái</h3>
+          <ul>
+            <li>• <strong>Thang 5 âm (Ngũ cung Thái):</strong> <code>Đô (Hò) – Rê (Xự) – Pha (Xang) – Son (Xê) – La (Cống)</code> tương ứng tần số chuẩn <code>261,6Hz – 293,7Hz – 349,2Hz – 392,0Hz – 440,0Hz</code>.</li>
+            <li>• <strong>Lượng tử hóa Cao độ YIN:</strong> <code>MIDI = 69 + 12 × log₂(f₀ / 440)</code> giúp nhận diện chính xác bước nhảy quãng 4 đúng của điệu <em>Khắp, Nhuôn</em>.</li>
+            <li>• <strong>Mã hóa Khắc luống (Nhịp 2/4):</strong> Phách 1 âm trầm <strong>TÙNG</strong> (gõ lòng luống = Vỗ hai tay vào đùi); Phách 2 âm đanh <strong>CẮC – CẮC</strong> (gõ thành luống = Vỗ tay cao / thanh phách).</li>
+            <li>• <strong>Chu kỳ Nhảy sạp:</strong> <code>Mở (Tùng) – Mở (Cắc) – Khép (Cắc!)</code>.</li>
+          </ul>
+        </div>
+        <div class="anim-card navy">
+          <img class="img-frame" src="HINH_ANH_MINH_HOA/Hinh_03_Thang_am_va_Tiet_tau_Khac_luong_Nhay_sap.png" alt="Thang âm và Tiết tấu Khắc luống">
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: HỆ THỐNG 5 BIỆN PHÁP & HỒ SƠ DI SẢN 1 TRANG -->
+    <section class="slide">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">PHẦN III. HỆ THỐNG 5 BIỆN PHÁP LIÊN HOÀN</span>
+          <div class="slide-title">Quy trình 5 Biện pháp Sư phạm &amp; Thiết kế “Hồ sơ Di sản 1 trang” (QR)</div>
+          <div class="slide-sub">Xác thực nguồn gốc kép từ nghệ nhân bản làng Hữu Kiệm và tư liệu Viện Âm nhạc</div>
+        </div>
+      </div>
+      <div class="slide-body grid-2">
+        <div class="anim-card navy">
+          <img class="img-frame" style="height:430px;" src="HINH_ANH_MINH_HOA/Hinh_02_Quy_trinh_5_bien_phap_SKKN.png" alt="Quy trình 5 biện pháp">
+          <p style="font-size:12.5px;margin-top:8px;color:#334155;"><strong>Chuỗi khép kín:</strong> Nguồn xác thực → Hồ sơ di sản 1 trang → Học 3 Trạm &amp; Lab 3D → CLB Bán trú → Hộ chiếu Âm nhạc.</p>
+        </div>
+        <div class="anim-card gold">
+          <img class="img-frame" style="height:430px;" src="HINH_ANH_MINH_HOA/Hinh_06_Ho_so_di_san_va_Ho_chieu_Am_nhac.png" alt="Hồ sơ di sản và Hộ chiếu Âm nhạc">
+          <p style="font-size:12.5px;margin-top:8px;color:#334155;"><strong>Bộ 08 Hồ sơ di sản 1 trang:</strong> Ghi rõ bản làng xuất xứ, ngữ cảnh lễ hội và quy tắc tôn trọng di sản.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: TRÒ CHƠI Ô CHỮ TƯƠNG TÁC, BẢNG MÃ CHỈ BÁO NLS + AI & BODY PERCUSSION 5 TẦNG -->
+    <section class="slide">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">NĂNG LỰC SỐ (NLS + AI) 2026–2027 &amp; TRÒ CHƠI THEO 3 NĂNG LỰC CỐT LÕI</span>
+          <div class="slide-title">Trò chơi Giải Ô Chữ “Mật mã Di sản Thái”, Luyện thanh Ngũ cung &amp; Body Percussion 5 tầng</div>
+          <div class="slide-sub">Tích hợp mã chỉ báo NLS 1.1 – 4.2, kỹ thuật Đọc nhạc bàn tay Kodály, Bộ gõ cơ thể Orff-Schulwerk &amp; Đặt lời mới</div>
+        </div>
+      </div>
+      <div class="slide-body" style="grid-template-columns: 1fr;">
+        <div class="anim-card crimson" style="display:flex;align-items:center;justify-content:center;">
+          <img class="img-frame" style="max-height:575px;" src="HINH_ANH_MINH_HOA/Hinh_12_Tro_choi_O_chu_va_Ma_chi_bao_NLS_AI.png" alt="Trò chơi Ô chữ và Mã chỉ báo NLS + AI">
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: MÔ HÌNH DẠY HỌC 3 TRẠM & TRẢI NGHIỆM DÂN VŨ -->
+    <section class="slide">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">BIỆN PHÁP 2 &amp; BIỆN PHÁP 3</span>
+          <div class="slide-title">Mô hình Lớp học “3 Trạm Luân phiên” &amp; Thực hành Tổ hợp 2 × 8 Nhịp</div>
+          <div class="slide-sub">100% học sinh các dân tộc Thái, Khơ Mú, H'Mông được phân vai trải nghiệm đa giác quan</div>
+        </div>
+      </div>
+      <div class="slide-body grid-2">
+        <div class="anim-card">
+          <img class="img-frame" style="height:380px;" src="HINH_ANH_MINH_HOA/Hinh_04_So_do_lop_hoc_3_tram_Am_nhac.png" alt="Sơ đồ lớp học 3 trạm">
+          <h3 style="margin-top:8px;">Tổ chức 3 Trạm trong 18 phút trọng tâm</h3>
+          <ul>
+            <li>• <strong>Trạm 1 (5p):</strong> Nghe cảm thụ Ngũ cung &amp; âm sắc Khèn bè qua mã QR.</li>
+            <li>• <strong>Trạm 2 (5p):</strong> Giải mã Hồ sơ di sản bản Na Chảo, Lễ hội Đền Pu Nhạ Thầu.</li>
+            <li>• <strong>Trạm 3 (5p):</strong> Gõ nhịp Khắc luống Body Percussion &amp; bước Xòe 2×8 nhịp.</li>
+          </ul>
+        </div>
+        <div class="anim-card crimson">
+          <img class="photo-cover" style="height:380px;" src="HINH_ANH_MINH_HOA/Hinh_07_Minh_hoa_trai_nghiem_Khac_luong_va_Mua_xoe.jpg" alt="Trải nghiệm Khắc luống và Múa Xòe">
+          <h3>Tập từ Tempo chậm (72 BPM) đến chuẩn (96 BPM)</h3>
+          <ul>
+            <li>• Học sinh quan sát mô phỏng 3D và khuông nhạc VexFlow để bắt đúng phách mạnh (Tùng) trước khi ghép vòng Xòe khăn piêu và Nhảy sạp.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: KẾT NỐI NGHỆ NHÂN BẢN LÀNG & CLB BÁN TRÚ -->
+    <section class="slide">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">BIỆN PHÁP 4. ĐẶC THÙ TRƯỜNG BÁN TRÚ VÙNG CAO</span>
+          <div class="slide-title">Kết nối Nghệ nhân Bản Na Chảo, Na Lượng &amp; CLB “Giai điệu Bản Thái”</div>
+          <div class="slide-sub">Truyền lửa trực tiếp từ nghệ nhân dân gian đến giờ tự quản buổi tối tại khu nội trú</div>
+        </div>
+      </div>
+      <div class="slide-body grid-2">
+        <div class="anim-card gold">
+          <img class="photo-cover" style="height:360px;" src="HINH_ANH_MINH_HOA/Hinh_10_Thuc_te_Nghe_nhan_Khen_be_va_Nhay_sap_Huu_Kiem.jpg" alt="Nghệ nhân Khèn bè thực tế">
+          <h3>1. Giao lưu “Nghệ nhân bản em” tại sân trường</h3>
+          <ul>
+            <li>• Nghệ nhân dân gian bản Thái trực tiếp giới thiệu cấu tạo 14 ống trúc của chiếc <strong>Khèn bè Thái</strong>, thổi bè trầm giữ nhịp cho học sinh thực hành Nhảy sạp.</li>
+          </ul>
+        </div>
+        <div class="anim-card navy">
+          <img class="photo-cover" style="height:360px;" src="HINH_ANH_MINH_HOA/Hinh_08_Giao_luu_nghe_nhan_ban_tru_Huu_Kiem.jpg" alt="CLB Giai điệu Bản Thái">
+          <h3>2. CLB “Giai điệu Bản Thái” tối thứ Năm (25 phút)</h3>
+          <ul>
+            <li>• Học sinh người Thái làm hạt nhân hướng dẫn các bạn dân tộc Khơ Mú, H'Mông từ điểm trường Bảo Nam sáp nhập về cùng múa Xòe, gõ Khắc luống.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: NHÚNG TRỰC TIẾP PHÒNG THÍ NGHIỆM 3D TƯƠNG TÁC -->
+    <section class="slide">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">TRẢI NGHIỆM TRỰC TIẾP ỨNG DỤNG 3D &amp; GITHUB MIR NGAY TRÊN SLIDE</span>
+          <div class="slide-title">Phòng Thí nghiệm 3D Dân ca &amp; Dân vũ Thái + Khuông nhạc SVG &amp; Chấm điểm Gõ nhịp</div>
+          <div class="slide-sub">Tương tác xoay 360°, bấm nốt nhạc Ngũ cung và nhấn phím Space để chấm điểm gõ nhịp Khắc luống</div>
+        </div>
+      </div>
+      <div class="slide-body" style="grid-template-columns: 1fr; padding: 10px 16px;">
+        <iframe class="live-lab" src="dan_ca_thai_huu_kiem_3d_lab.html" title="Phòng thí nghiệm 3D Dân ca Thái Hữu Kiệm"></iframe>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: VIDEO 3D FULL HD 1080P CÓ THUYẾT MINH TIẾNG VIỆT -->
+    <section class="slide">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">VIDEO THỰC TIỄN FULL HD 1080P KÈM THEO HỒ SƠ NỘP SỞ</span>
+          <div class="slide-title">Video 3D Thuyết minh Sáng kiến Kinh nghiệm &amp; Bảng Kiểm duyệt 6 Phân cảnh</div>
+          <div class="slide-sub">Tích hợp giọng đọc thuyết minh tiếng Việt, nhạc nền Ngũ cung Thái Auto-Ducking (-16 LUFS) &amp; phụ đề</div>
+        </div>
+      </div>
+      <div class="slide-body grid-2">
+        <div class="anim-card crimson">
+          <h3>🎬 Phát trực tiếp Video 3D Thuyết minh (1080p)</h3>
+          <video class="live-vid" controls preload="metadata" src="dan_ca_thai_huu_kiem_3d_video.mp4"></video>
+          <p style="font-size:12.5px;margin-top:8px;color:#334155;">Bấm nút <strong>Play (▶)</strong> để nghe thuyết minh toàn bộ 3 trạm trải nghiệm văn hóa Thái.</p>
+        </div>
+        <div class="anim-card navy">
+          <h3>🖼️ Bảng Kiểm duyệt 6 Phân cảnh 3D (QA Sheet)</h3>
+          <img class="img-frame" style="height:455px;" src="dan_ca_thai_huu_kiem_3d_video_qa_sheet.jpg" alt="6 phân cảnh 3D">
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: KẾT QUẢ THỰC NGHIỆM & KẾT LUẬN -->
+    <section class="slide">
+      <div class="slide-hdr">
+        <div class="slide-hdr-left">
+          <span class="slide-tag">PHẦN IV &amp; V. KẾT QUẢ THỰC NGHIỆM &amp; KẾT LUẬN</span>
+          <div class="slide-title">Hiệu quả Thực nghiệm Đối chứng Trước – Sau (N = 120 HS) &amp; Khả năng Nhân rộng</div>
+          <div class="slide-sub">Tăng trưởng từ +51,6% đến +55,0% trên cả 4 tiêu chí năng lực âm nhạc và thái độ tôn trọng di sản</div>
+        </div>
+      </div>
+      <div class="slide-body grid-right-wide">
+        <div class="anim-card gold">
+          <h3>📈 Kết quả Kiểm chứng trên 120 Học sinh</h3>
+          <ul>
+            <li>• <strong>TC1 (Nhận diện đặc trưng):</strong> Tăng từ <code>34,2%</code> lên <strong>87,5% (+53,3%)</strong>.</li>
+            <li>• <strong>TC2 (Hứng thú tham gia):</strong> Tăng từ <code>41,7%</code> lên <strong>93,3% (+51,6%)</strong>.</li>
+            <li>• <strong>TC3 (Thực hành Khắc luống &amp; Xòe, Sạp):</strong> Tăng từ <code>29,2%</code> lên <strong>84,2% (+55,0%)</strong>.</li>
+            <li>• <strong>TC4 (Tôn trọng di sản bản làng):</strong> Tăng từ <code>36,7%</code> lên <strong>91,7% (+55,0%)</strong>.</li>
+            <li>• <strong>Giá trị bền vững:</strong> Giữ nguyên vẹn hồn cốt truyền thống Thái xã Hữu Kiệm, đồng thời nâng tầm bài học bằng công nghệ mã nguồn mở GitHub &amp; 3D Offline.</li>
+          </ul>
+        </div>
+        <div class="anim-card">
+          <img class="img-frame" src="HINH_ANH_MINH_HOA/Hinh_05_Bieu_do_Ket_qua_Thuc_nghiem_SKKN.png" alt="Biểu đồ kết quả thực nghiệm">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll('section.slide'));
+      const counterEl = document.getElementById('slideCounter');
+      const progFill = document.getElementById('progFill');
+      let cur = 0;
+
+      function showSlide(idx) {
+        cur = (idx + slides.length) % slides.length;
+        slides.forEach((s, i) => {
+          s.classList.remove('active', 'prev');
+          if (i === cur) s.classList.add('active');
+          else if (i < cur) s.classList.add('prev');
+        });
+        counterEl.textContent = `${String(cur + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        progFill.style.width = `${((cur + 1) / slides.length) * 100}%`;
+      }
+
+      document.getElementById('btnPrevSlide').onclick = () => showSlide(cur - 1);
+      document.getElementById('btnNextSlide').onclick = () => showSlide(cur + 1);
+      document.getElementById('btnFullscreen').onclick = () => {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+        else document.exitFullscreen().catch(() => {});
+      };
+
+      window.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown') showSlide(cur + 1);
+        else if (e.key === 'ArrowLeft' || e.key === 'PageUp') showSlide(cur - 1);
+      });
+    })();
+  </script>
+</body>
+</html>
