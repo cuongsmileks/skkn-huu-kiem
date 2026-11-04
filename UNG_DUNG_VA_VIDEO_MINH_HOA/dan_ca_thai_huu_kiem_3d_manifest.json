@@ -1,0 +1,46 @@
+{
+  "title": "Không gian 3D Dân ca & Dân vũ Thái – Trường PTDTBT THCS Hữu Kiệm",
+  "voice": "Erinome",
+  "model": "gemini-3.8-flash-tts",
+  "music_bpm": 80,
+  "intro_pad": 0.65,
+  "outro_pad": 1.15,
+  "scenes": [
+    {
+      "id": "s1",
+      "lead_in": 0.55,
+      "tail_pause": 0.80,
+      "sfx": "soft_chime",
+      "sfx_when": "lead_in",
+      "caption": "Trường PTDTBT THCS Hữu Kiệm: Mô hình 3 Trạm trải nghiệm Dân ca & Dân vũ dân tộc Thái (Khắp, Khắc luống, Xòe – Sạp)",
+      "tts_text": "Chào mừng quý thầy cô và các em học sinh đến với Không gian thực hành ba chiều Dân ca và Dân vũ dân tộc Thái tại Trường Phổ thông Dân tộc Bán trú Trung học Cơ sở Hữu Kiệm, gắn kết ba trạm trải nghiệm: Giai điệu Khắp và Khèn bè, Tiết tấu Khắc luống, cùng Vũ đạo Vòng Xòe và Nhảy sạp."
+    },
+    {
+      "id": "s2",
+      "lead_in": 0.35,
+      "tail_pause": 0.90,
+      "sfx": "flute_vs_string_440",
+      "sfx_when": "tail",
+      "caption": "Trạm 1 – Dân ca Khắp, Nhuôn & Khèn bè Thái: Thang 5 âm (Đô – Rê – Pha – Son – La) và âm sắc bè trầm ngân vang",
+      "tts_text": "Tại Trạm một, học sinh lắng nghe trích đoạn dân ca Khắp Thái và hát Nhuôn từ bản Na Chảo, bản Na Lượng, đồng thời quan sát năm cột sóng âm của thang ngũ cung Đô, Rê, Pha, Son, La hòa quyện cùng âm sắc ngân dài của chiếc Khèn bè Thái."
+    },
+    {
+      "id": "s3",
+      "lead_in": 0.35,
+      "tail_pause": 0.95,
+      "sfx": "tuning_fork_440",
+      "sfx_when": "tail",
+      "caption": "Trạm 2 – Nghệ thuật Khắc luống (Nhịp 2/4): Chày gỗ gõ lòng luống (TÙNG) và gõ thành luống (CẮC) tạo xung nhịp đối đáp",
+      "tts_text": "Bước sang Trạm hai, các em khám phá nghệ thuật Khắc luống độc đáo của đồng bào Thái: khi chày gỗ chạm lòng luống tạo âm Tùng trầm ấm, khi gõ vào thành luống tạo âm Cắc giòn vang, giúp học sinh dễ dàng chuyển hóa thành bài gõ đệm cơ thể nhịp hai bốn."
+    },
+    {
+      "id": "s4",
+      "lead_in": 0.35,
+      "tail_pause": 1.15,
+      "sfx": "amp_swell_340",
+      "sfx_when": "tail",
+      "caption": "Trạm 3 – Dân vũ Vòng Xòe khăn piêu & Nhảy sạp: Tổ hợp 2 × 8 nhịp theo chu kỳ Mở – Mở – Khép trong sinh hoạt bán trú",
+      "tts_text": "Tại Trạm ba và giờ sinh hoạt câu lạc bộ bán trú, học sinh thực hành tổ hợp hai lần tám nhịp Vòng Xòe khăn piêu và bước nhảy sạp nhịp nhàng theo chu kỳ Mở, Mở, Khép, qua đó bồi đắp niềm tự hào văn hóa bản làng và nâng cao hứng thú học tập môn Âm nhạc."
+    }
+  ]
+}
