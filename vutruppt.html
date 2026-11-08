@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vũ trụ Powerpoint - Tài nguyên thiết kế Slide chuyên nghiệp, Game PPT & Báo cáo Biện pháp GVG</title>
+<style>
+  :root {
+    --bg-main: #0f0f13;
+    --bg-card: #1b1e26;
+    --bg-card-hover: #252934;
+    --bg-glass: rgba(27, 30, 38, 0.86);
+    --primary: #2563eb;
+    --primary-glow: rgba(37, 99, 235, 0.45);
+    --accent: #f59e0b;
+    --purple: #7c3aed;
+    --emerald: #10b981;
+    --rose: #f43f5e;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #2e3340;
+    --radius-lg: 16px;
+    --radius-md: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+    background: radial-gradient(circle at 15% 10%, rgba(124,58,237,0.16), transparent 35%),
+                radial-gradient(circle at 85% 15%, rgba(37,99,235,0.18), transparent 40%),
+                var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* TOPBAR CRAFT ANYTHING BADGE */
+  .craft-bar {
+    background: linear-gradient(90deg, #1e1b4b, #172554, #0f172a);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 7px 20px;
+    font-size: 12.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .craft-bar .left { display: flex; align-items: center; gap: 10px; }
+  .craft-pill {
+    background: #38bdf8; color: #0f172a; font-weight: 800;
+    padding: 2px 9px; border-radius: 99px; font-size: 11px; letter-spacing: 0.3px;
+  }
+  .craft-bar .right { display: flex; align-items: center; gap: 12px; }
+  .craft-bar a.link-btn {
+    background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 6px;
+    color: #fde68a; font-weight: 600; font-size: 12px; border: 1px solid rgba(253,230,138,0.3);
+  }
+  .craft-bar a.link-btn:hover { background: rgba(253,230,138,0.2); }
+
+  /* HEADER (.header) */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header__container {
+    max-width: 1360px; margin: 0 auto; padding: 12px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .header__logo {
+    display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px;
+    background: linear-gradient(90deg, #60a5fa, #c084fc, #fbbf24);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+  }
+  .header__logo-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 20px; -webkit-text-fill-color: #fff;
+    box-shadow: 0 4px 14px var(--primary-glow);
+  }
+  .header__nav {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
+  .header__menu-item {
+    display: flex; align-items: center; gap: 7px;
+    padding: 8px 13px; border-radius: 10px; font-size: 13.5px; font-weight: 600;
+    color: #e2e8f0; transition: all 0.2s; cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .header__menu-item:hover, .header__menu-item.active {
+    background: rgba(37, 99, 235, 0.16);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #60a5fa;
+  }
+  .header__search {
+    flex: 1; max-width: 320px; position: relative;
+  }
+  .header__search input {
+    width: 100%; padding: 9px 14px 9px 36px;
+    border-radius: 99px; border: 1px solid var(--border);
+    background: #14171f; color: var(--text-main); font-size: 13.5px;
+    outline: none; transition: border 0.2s;
+  }
+  .header__search input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.2); }
+  .header__search-icon {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    color: var(--text-muted); font-size: 14px;
+  }
+  .header__auth {
+    display: flex; align-items: center; gap: 10px; white-space: nowrap;
+  }
+  .btn-pricing {
+    padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 13px;
+    background: rgba(245, 158, 11, 0.15); color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.4); cursor: pointer;
+  }
+  .btn-login {
+    padding: 8px 16px; border-radius: 10px; font-weight: 700; font-size: 13px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed); color: #fff;
+    border: none; cursor: pointer; box-shadow: 0 4px 12px var(--primary-glow);
+  }
+
+  /* CONTAINER */
+  .dashboard { max-width: 1360px; margin: 0 auto; padding: 20px; }
+
+  /* HERO SLIDER (.home-slider) */
+  .home-slider {
+    position: relative; border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border); margin-bottom: 28px;
+    background: #161922;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+  }
+  .slide-item {
+    display: none; padding: 38px 44px; min-height: 310px;
+    align-items: center; justify-content: space-between; gap: 28px;
+    position: relative;
+  }
+  .slide-item.active { display: flex; }
+  .slide-content { max-width: 640px; z-index: 2; }
+  .slide-badge {
+    display: inline-block; padding: 5px 12px; border-radius: 99px;
+    font-size: 12px; font-weight: 800; margin-bottom: 12px;
+    background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245,158,11,0.45);
+  }
+  .slide-title { font-size: 28px; font-weight: 800; line-height: 1.25; margin-bottom: 10px; color: #fff; }
+  .slide-desc { font-size: 14.5px; color: #cbd5e1; margin-bottom: 20px; }
+  .slide-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-cta {
+    padding: 11px 20px; border-radius: 10px; font-weight: 700; font-size: 14px;
+    background: #2563eb; color: #fff; border: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-cta.gold { background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a; }
+  .btn-cta.outline { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.25); }
+  .slide-visual {
+    width: 440px; height: 248px; border-radius: 14px; overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.18); flex-shrink: 0;
+    background: #0b1021; position: relative;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  }
+  .slide-visual img { width: 100%; height: 100%; object-fit: cover; }
+  .slider-controls {
+    position: absolute; bottom: 14px; left: 44px; display: flex; align-items: center; gap: 8px; z-index: 5;
+  }
+  .dot {
+    width: 9px; height: 9px; border-radius: 99px; background: rgba(255,255,255,0.3);
+    cursor: pointer; transition: all 0.25s;
+  }
+  .dot.active { width: 28px; background: #fbbf24; }
+  .slider-nav-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(15,23,42,0.75); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; font-size: 18px; cursor: pointer; z-index: 5;
+  }
+  .slider-nav-btn.prev { left: 12px; }
+  .slider-nav-btn.next { right: 12px; }
+
+  /* SECTION HEADINGS */
+  .section-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 16px; flex-wrap: wrap; gap: 12px;
+  }
+  .home-update__title, .home-category__title {
+    font-size: 22px; font-weight: 800; color: #fff;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .home-update__subtitle, .home-category__subtitle {
+    font-size: 13.5px; color: var(--text-muted); margin-top: 2px;
+  }
+
+  /* FILTER TABS */
+  .filter-bar {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+  }
+  .filter-pill {
+    padding: 7px 14px; border-radius: 99px; font-size: 13px; font-weight: 600;
+    background: var(--bg-card); color: #cbd5e1; border: 1px solid var(--border);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-pill:hover, .filter-pill.active {
+    background: var(--primary); color: #fff; border-color: #60a5fa;
+    box-shadow: 0 4px 12px var(--primary-glow);
+  }
+
+  /* PRODUCT RESOURCE GRID (.product-list) */
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+  .product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+    border-color: #3b82f6;
+    box-shadow: 0 12px 26px rgba(0,0,0,0.45);
+  }
+  .product-image-box {
+    position: relative; width: 100%; aspect-ratio: 16 / 9;
+    background: #0d111a; overflow: hidden;
+  }
+  .product-image-box img {
+    width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s;
+  }
+  .product-card:hover .product-image-box img { transform: scale(1.05); }
+  .coin-badge {
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(15, 23, 42, 0.88); border: 1px solid rgba(245, 158, 11, 0.6);
+    color: #fde68a; font-weight: 800; font-size: 11.5px;
+    padding: 3px 9px; border-radius: 99px; display: flex; align-items: center; gap: 4px;
+  }
+  .tag-badge {
+    position: absolute; top: 8px; left: 8px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: #fff; font-weight: 700; font-size: 10.5px;
+    padding: 3px 8px; border-radius: 6px;
+  }
+  .hover-overlay {
+    position: absolute; inset: 0; background: rgba(15, 23, 42, 0.72);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .product-card:hover .hover-overlay { opacity: 1; }
+  .btn-overlay {
+    padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;
+    border: none; cursor: pointer;
+  }
+  .btn-overlay.preview { background: #38bdf8; color: #0f172a; }
+  .btn-overlay.download { background: #10b981; color: #fff; }
+
+  .product-info { padding: 12px 14px; }
+  .product-title {
+    font-size: 14px; font-weight: 700; color: #f1f5f9;
+    margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .product-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; color: var(--text-muted);
+  }
+  .author-box { display: flex; align-items: center; gap: 6px; }
+  .author-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: bold; color: #fff;
+  }
+
+  /* FEATURED CATEGORIES (.home-category__list - 16 Collections) */
+  .home-category { margin-bottom: 40px; }
+  .home-category__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+  }
+  .home-category__item {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 16px 12px; text-align: center;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .home-category__item:hover {
+    background: var(--bg-card-hover); border-color: #a855f7;
+    transform: translateY(-3px);
+  }
+  .home-category__card {
+    width: 60px; height: 60px; margin: 0 auto 10px auto;
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    background: radial-gradient(circle, rgba(124,58,237,0.28), rgba(37,99,235,0.12));
+    border: 1px solid rgba(168,85,247,0.35);
+  }
+  .home-category__name {
+    font-size: 13px; font-weight: 600; color: #e2e8f0; line-height: 1.35;
+  }
+
+  /* PRICING SECTION (/bang-gia) */
+  .pricing-section {
+    background: linear-gradient(180deg, rgba(30,41,59,0.5), rgba(15,23,42,0.8));
+    border: 1px solid var(--border); border-radius: 20px;
+    padding: 32px 24px; margin-bottom: 36px;
+  }
+  .billing-tabs {
+    display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 16px 0 26px 0;
+  }
+  .billing-tab {
+    padding: 8px 16px; border-radius: 99px; font-size: 13px; font-weight: 700;
+    background: #1e293b; border: 1px solid #334155; color: #cbd5e1; cursor: pointer;
+  }
+  .billing-tab.active { background: #2563eb; color: #fff; border-color: #60a5fa; }
+  .save-tag {
+    background: #10b981; color: #0f172a; padding: 1px 6px; border-radius: 99px;
+    font-size: 10.5px; margin-left: 5px; font-weight: 800;
+  }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px;
+  }
+  .price-card {
+    background: #161922; border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px; position: relative; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .price-card.popular {
+    border: 2px solid #f59e0b;
+    box-shadow: 0 12px 32px rgba(245, 158, 11, 0.18);
+  }
+  .popular-ribbon {
+    position: absolute; top: -12px; right: 20px;
+    background: linear-gradient(90deg, #f59e0b, #ea580c);
+    color: #fff; font-weight: 800; font-size: 11px; padding: 3px 12px; border-radius: 99px;
+  }
+  .price-card h3 { font-size: 19px; color: #fff; margin-bottom: 4px; }
+  .price-amount { font-size: 28px; font-weight: 800; color: #60a5fa; margin: 12px 0; }
+  .price-card ul { list-style: none; margin: 14px 0 20px 0; }
+  .price-card ul li { font-size: 13.5px; color: #cbd5e1; padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.07); }
+
+  /* INTERACTIVE MODAL FOR LIVE SLIDE / GAME PREVIEW */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.82);
+    backdrop-filter: blur(8px); z-index: 999;
+    display: none; align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal-box {
+    background: #161922; border: 1px solid #3b82f6; border-radius: 18px;
+    max-width: 980px; width: 100%; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.75);
+  }
+  .modal-header {
+    padding: 14px 20px; background: #1e2433; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .modal-body { padding: 20px; }
+  .modal-stage {
+    width: 100%; aspect-ratio: 16 / 9; background: #0b1021;
+    border-radius: 12px; overflow: hidden; border: 1px solid #334155;
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 24px; text-align: center;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); background: #0b0d12;
+    padding: 32px 20px; margin-top: 40px; font-size: 13px; color: var(--text-muted);
+  }
+  .footer-inner {
+    max-width: 1360px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;
+  }
+  .footer-inner h4 { color: #fff; margin-bottom: 10px; font-size: 14.5px; }
+  .footer-inner ul { list-style: none; }
+  .footer-inner ul li { margin-bottom: 7px; }
+
+  @media (max-width: 900px) {
+    .slide-item { flex-direction: column; padding: 24px 20px; text-align: center; }
+    .slide-visual { width: 100%; height: 200px; }
+    .slide-actions { justify-content: center; }
+    .header__nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CRAFT ANYTHING CLEAN-ROOM BAR -->
+<div class="craft-bar">
+  <div class="left">
+    <span class="craft-pill">🦀 CRAFT ANYTHING CLEAN-ROOM REBUILD</span>
+    <span>Bản tái dựng phòng sạch từ <b>vutrupowerpoint.vn</b> tích hợp <b>Kho Slide Báo cáo Biện pháp GVG & Học liệu 3D THCS Hữu Kiệm</b></span>
+  </div>
+  <div class="right">
+    <a class="link-btn" href="index.html">🏠 Cổng Minh Chứng Số SKKN</a>
+    <a class="link-btn" href="lab3d.html">🧪 Phòng Lab 3D</a>
+    <a class="link-btn" href="slide.html">📊 Trình Chiếu 27 Slide 3D</a>
+    <a class="link-btn" href="BAO_CAO_SKKN_AM_NHAC_DAN_CA_THAI_THCS_HUU_KIEM_VI_THI_NHUNG.pptx" download>⬇️ Tải File .PPTX Gốc</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header__container">
+    <a href="#" class="header__logo" onclick="filterCards('all'); return false;">
+      <span class="header__logo-icon">🪐</span>
+      <span>Vũ Trụ PowerPoint</span>
+    </a>
+    <nav class="header__nav">
+      <div class="header__menu-item active" onclick="filterCards('all')">⚡ Powerpoint & Tài nguyên VIP</div>
+      <div class="header__menu-item" onclick="filterCards('gvg')">🏆 Báo cáo Biện pháp GVG</div>
+      <div class="header__menu-item" onclick="filterCards('game')">🎮 PowerPoint Trò chơi</div>
+      <div class="header__menu-item" onclick="filterCards('ai3d')">🤖 Robot AI 3D (QĐ 2422)</div>
+    </nav>
+    <div class="header__search">
+      <span class="header__search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Tìm mẫu slide GVG, trò chơi, hiệu ứng Morph, 20/11..." oninput="searchCards(this.value)">
+    </div>
+    <div class="header__auth">
+      <button class="btn-pricing" onclick="document.getElementById('pricingSection').scrollIntoView({behavior:'smooth'})">💎 Bảng giá & Gói Xu</button>
+      <button class="btn-login" onclick="openPreviewModal('skkn')">🚀 Mở Slide GVG Hữu Kiệm</button>
+    </div>
+  </div>
+</header>
+
+<main class="dashboard">
+
+  <!-- HERO SLIDER (7 BANNERS MATCHING VUTRUPOWERPOINT.VN) -->
+  <section class="home-slider" id="heroSlider">
+    <button class="slider-nav-btn prev" onclick="changeSlide(-1)">❮</button>
+    <button class="slider-nav-btn next" onclick="changeSlide(1)">❯</button>
+
+    <div class="slide-item active" style="background:linear-gradient(125deg,#1e1b4b,#1e3a8a,#0f172a);">
+      <div class="slide-content">
+        <span class="slide-badge">🔥 BỘ SƯU TẬP ĐẶC BIỆT 2026–2027</span>
+        <h1 class="slide-title">PowerPoint Báo Cáo Biện Pháp Giáo Viên Giỏi & Sáng Kiến Kinh Nghiệm</h1>
+        <p class="slide-desc">Chuẩn hiệu ứng Morph 3D, tích hợp Sơ đồ bánh răng AI – STEM, Dalcroze – Kodály – Orff, Chuyên đề AI QĐ 2422/QĐ-BGDĐT và Mã QR Minh chứng thực nghiệm tại Trường PTDTBT THCS Hữu Kiệm.</p>
+        <div class="slide-actions">
+          <button class="btn-cta gold" onclick="openPreviewModal('skkn')">▶️ Xem Trực Tiếp 27 Slide GVG</button>
+          <a class="btn-cta outline" href="BAO_CAO_SKKN_AM_NHAC_DAN_CA_THAI_THCS_HUU_KIEM_VI_THI_NHUNG.pptx" download>⬇️ Tải Bản PowerPoint (.PPTX)</a>
+        </div>
+      </div>
+      <div class="slide-visual">
+        <img src="HINH_ANH_MINH_HOA/Hinh_17_Phuong_phap_Dalcroze_Kodaly_Orff_Bo_Go_Co_The_Nghe_An.png" alt="Slide Báo cáo GVG">
+      </div>
+    </div>
+
+    <div class="slide-item" style="background:linear-gradient(125deg,#064e3b,#0f766e,#0f172a);">
+      <div class="slide-content">
+        <span class="slide-badge">🎮 POWERPOINT TRÒ CHƠI LỚP HỌC</span>
+        <h1 class="slide-title">Kho Game Tương Tác: Giải Ô Chữ “Mật Mã Di Sản Thái” & Đoán Điệu Khắp</h1>
+        <p class="slide-desc">Nút bấm game 3D, hiệu ứng âm thanh Ngũ cung (Hò – Xự – Xang – Xê – Cống) và bộ chấm điểm gõ nhịp Khắc luống trực tiếp trên màn hình lớp học.</p>
+        <div class="slide-actions">
+          <button class="btn-cta gold" onclick="openPreviewModal('game')">🎮 Chơi Thử Game Ô Chữ Ngay</button>
+          <a class="btn-cta outline" href="lab3d.html">🧪 Mở Phòng Thí Nghiệm 3D</a>
+        </div>
+      </div>
+      <div class="slide-visual">
+        <img src="HINH_ANH_MINH_HOA/Hinh_15_The_Luat_Choi_Doan_Dieu_Khap_Va_O_Chu.png" alt="PowerPoint Trò chơi">
+      </div>
+    </div>
+
+    <div class="slide-item" style="background:linear-gradient(125deg,#3b0764,#6d28d9,#0f172a);">
+      <div class="slide-content">
+        <span class="slide-badge">🤖 ROBOT AI 3D & QUYẾT ĐỊNH 2422/QĐ-BGDĐT</span>
+        <h1 class="slide-title">Bộ Tài Nguyên Đồ Họa AI 3D & Chuyên Đề Trí Tuệ Nhân Tạo Cấp THCS</h1>
+        <p class="slide-desc">Đồng bộ 4 khối Lớp 6, 7, 8, 9 theo Quyết định 2422/QĐ-BGDĐT ngày 18/8/2026 của Bộ GD&ĐT: Nhân vật Robot AI 3D, Ma trận YCCĐ và học liệu Offline không cần tạo tài khoản.</p>
+        <div class="slide-actions">
+          <button class="btn-cta gold" onclick="openPreviewModal('ai2422')">🤖 Xem Slide Ma Trận AI QĐ 2422</button>
+          <button class="btn-cta outline" onclick="filterCards('ai3d')">📂 Lọc Tài Nguyên AI 3D</button>
+        </div>
+      </div>
+      <div class="slide-visual">
+        <img src="HINH_ANH_MINH_HOA/Hinh_19_Ma_tran_Tich_hop_Chuyen_de_AI_QD2422_BGDDT_THCS_Huu_Kiem.png" alt="Chuyên đề AI QĐ 2422">
+      </div>
+    </div>
+
+    <div class="slider-controls" id="sliderDots">
+      <span class="dot active" onclick="setSlide(0)"></span>
+      <span class="dot" onclick="setSlide(1)"></span>
+      <span class="dot" onclick="setSlide(2)"></span>
+    </div>
+  </section>
+
+  <!-- SECTION 1: UPDATE HÀNG NGÀY -->
+  <section class="home-update">
+    <div class="section-head">
+      <div>
+        <h2 class="home-update__title">🔥 Update hàng ngày <span style="font-size:13px; background:#2563eb; padding:2px 10px; border-radius:99px;">7.457+ Tài nguyên</span></h2>
+        <p class="home-update__subtitle">Cùng khám phá các mục file Slide PowerPoint, Biện pháp GVG, Game tương tác & Học liệu 3D mới được cập nhật tại đây nhé!</p>
+      </div>
+    </div>
+
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-pill active" data-cat="all" onclick="filterCards('all')">🌐 Tất cả (12)</button>
+      <button class="filter-pill" data-cat="gvg" onclick="filterCards('gvg')">🏆 Báo cáo Biện pháp GVG & SKKN</button>
+      <button class="filter-pill" data-cat="game" onclick="filterCards('game')">🎮 PowerPoint Trò chơi & Nút bấm</button>
+      <button class="filter-pill" data-cat="ai3d" onclick="filterCards('ai3d')">🤖 Robot AI 3D & QĐ 2422/QĐ-BGDĐT</button>
+      <button class="filter-pill" data-cat="morph" onclick="filterCards('morph')">✨ Hiệu ứng Morph & Ngũ cung 3D</button>
+      <button class="filter-pill" data-cat="2011" onclick="filterCards('2011')">💐 Hình nền 20/11 & Tổng kết</button>
+    </div>
+
+    <div class="product-list" id="productGrid">
+      <!-- Card 1 -->
+      <div class="product-card" data-cat="gvg" data-title="Mẫu báo cáo biện pháp m001 - SKKN Âm nhạc Dân ca Thái THCS Hữu Kiệm">
+        <div class="product-image-box">
+          <img src="HINH_ANH_MINH_HOA/Hinh_18_Thuc_te_Truong_PTDTBT_THCS_Huu_Kiem_Va_Le_Hoi_Pu_Nha_Thau.png" alt="Mẫu báo cáo biện pháp m001">
+          <span class="tag-badge">HOT GVG 2026</span>
+          <span class="coin-badge">🪙 25 Xu (Miễn phí tải)</span>
+          <div class="hover-overlay">
+            <button class="btn-overlay preview" onclick="openPreviewModal('skkn')">👁️ Xem Slide</button>
+            <a class="btn-overlay download" href="BAO_CAO_SKKN_AM_NHAC_DAN_CA_THAI_THCS_HUU_KIEM_VI_THI_NHUNG.pptx" download>⬇️ Tải .PPTX</a>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-title">Mẫu báo cáo biện pháp m001 – Đưa dân ca, dân vũ Thái vào môn Âm nhạc THCS Hữu Kiệm (27 Slides)</div>
+          <div class="product-meta">
+            <span class="author-box"><span class="author-dot">VN</span> Cô Vi Thị Nhung</span>
+            <span>Full .PPTX + 3D</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="product-card" data-cat="game" data-title="Powerpoint trò chơi Giải Ô Chữ Mật mã Di sản Thái & Đoán điệu Khắp">
+        <div class="product-image-box">
+          <img src="HINH_ANH_MINH_HOA/Hinh_15_The_Luat_Choi_Doan_Dieu_Khap_Va_O_Chu.png" alt="Powerpoint trò chơi">
+          <span class="tag-badge" style="background:#10b981;">GAME PPT</span>
+          <span class="coin-badge">🪙 1 Xu</span>
+          <div class="hover-overlay">
+            <button class="btn-overlay preview" onclick="openPreviewModal('game')">🎮 Chơi Thử</button>
+            <a class="btn-overlay download" href="lab3d.html">🚀 Mở Game 3D</a>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-title">Powerpoint trò chơi: Giải Ô Chữ "Mật mã Di sản Thái" (Từ khóa V-Ă-N-H-Ó-A) & Đoán điệu Khắp</div>
+          <div class="product-meta">
+            <span class="author-box"><span class="author-dot">VP</span> Vũ trụ Powerpoint</span>
+            <span>Tương tác 100%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="product-card" data-cat="ai3d" data-title="Robot AI 3D & Ma trận Chuyên đề AI THCS Quyết định 2422/QĐ-BGDĐT">
+        <div class="product-image-box">
+          <img src="HINH_ANH_MINH_HOA/Hinh_19_Ma_tran_Tich_hop_Chuyen_de_AI_QD2422_BGDDT_THCS_Huu_Kiem.png" alt="Robot AI 3D QĐ 2422">
+          <span class="tag-badge" style="background:#7c3aed;">AI 3D - QĐ 2422</span>
+          <span class="coin-badge">🪙 1 Xu</span>
+          <div class="hover-overlay">
+            <button class="btn-overlay preview" onclick="openPreviewModal('ai2422')">👁️ Xem Slide AI</button>
+            <a class="btn-overlay download" href="HINH_ANH_MINH_HOA/Hinh_19_Ma_tran_Tich_hop_Chuyen_de_AI_QD2422_BGDDT_THCS_Huu_Kiem.png" download>⬇️ Tải Ảnh 4K</a>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-title">Robot AI 3D – Ma trận Tích hợp Giáo dục Trí tuệ Nhân tạo THCS (Lớp 6, 7, 8, 9) chuẩn QĐ 2422/QĐ-BGDĐT</div>
+          <div class="product-meta">
+            <span class="author-box"><span class="author-dot">AI</span> Bộ GD&ĐT 2026</span>
+            <span>Slide 26/27</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="product-card" data-cat="morph" data-title="Powerpoint trình chiếu nội dung 014 - Bộ 3 Phương pháp Dalcroze Kodály Orff">
+        <div class="product-image-box">
+          <img src="HINH_ANH_MINH_HOA/Hinh_17_Phuong_phap_Dalcroze_Kodaly_Orff_Bo_Go_Co_The_Nghe_An.png" alt="Dalcroze Kodaly Orff">
+          <span class="tag-badge">MORPH 3D</span>
+          <span class="coin-badge">🪙 1 Xu</span>
+          <div class="hover-overlay">
+            <button class="btn-overlay preview" onclick="openPreviewModal('dko')">👁️ Xem Slide</button>
+            <a class="btn-overlay download" href="HINH_ANH_MINH_HOA/Hinh_17_Phuong_phap_Dalcroze_Kodaly_Orff_Bo_Go_Co_The_Nghe_An.png" download>⬇️ Tải Infographic</a>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-title">Powerpoint trình chiếu nội dung 014 – Ký hiệu bàn tay Kodály 7 bước & Bộ gõ cơ thể 5 tầng Orff</div>
+          <div class="product-meta">
+            <span class="author-box"><span class="author-dot">VP</span> Vũ trụ Powerpoint</span>
+            <span>Chuẩn GDPT 2018</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="product-card" data-cat="ai3d" data-title="Powerpoint trình chiếu nội dung 013 - Sơ đồ Bánh răng AI STEM Âm nhạc Thái">
+        <div class="product-image-box">
+          <img src="HINH_ANH_MINH_HOA/Hinh_14_So_do_Banh_Rang_AI_STEM_Am_Nhac_Thai.png" alt="Sơ đồ bánh răng AI STEM">
+          <span class="tag-badge" style="background:#f59e0b; color:#0f172a;">INFOGRAPHIC</span>
+          <span class="coin-badge">🪙 1 Xu</span>
+          <div class="hover-overlay">
+            <button class="btn-overlay preview" onclick="openPreviewModal('gears')">👁️ Xem Trước</button>
+            <a class="btn-overlay download" href="HINH_ANH_MINH_HOA/Hinh_14_So_do_Banh_Rang_AI_STEM_Am_Nhac_Thai.png" download>⬇️ Tải PNG</a>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-title">Powerpoint trình chiếu nội dung 013 – Mô hình Bánh răng Liên hoàn AI – STEM – Di sản Thái</div>
+          <div class="product-meta">
+            <span class="author-box"><span class="author-dot">VP</span> Vũ trụ Powerpoint</span>
+            <span>Vector 300 DPI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="product-card" data-cat="morph" data-title="Powerpoint trình chiếu nội dung 012 - Ứng dụng CNTT Encore MIDI Transpose 3D">
+        <div class="product-image-box">
+          <img src="HINH_ANH_MINH_HOA/Hinh_16_Ung_dung_CNTT_Phan_mem_Am_nhac_MIDI_3D.png" alt="Ứng dụng CNTT MIDI">
+          <span class="tag-badge">CNTT ÂM NHẠC</span>
+          <span class="coin-badge">🪙 1 Xu</span>
+          <div class="hover-overlay">
+            <button class="btn-overlay preview" onclick="openPreviewModal('midi')">👁️ Xem Trước</button>
+            <a class="btn-overlay download" href="HINH_ANH_MINH_HOA/Hinh_16_Ung_dung_CNTT_Phan_mem_Am_nhac_MIDI_3D.png" download>⬇️ Tải PNG</a>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-title">Powerpoint trình chiếu nội dung 012 – Kết nối Đàn Organ qua cáp MIDI Transpose & Ký âm đổi màu</div>
+          <div class="product-meta">
+            <span class="author-box"><span class="author-dot">VP</span> Vũ trụ Powerpoint</span>
+            <span>Slide 22/27</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="product-card" data-cat="gvg" data-title="Powerpoint trình chiếu nội dung 011 - Trung tâm Minh chứng số QR Hub">
+        <div class="product-image-box">
+          <img src="HINH_ANH_MINH_HOA/Hinh_13_Ma_QR_Minh_Chung_So_Va_Lo_Trinh_SKKN_2026.png" alt="Trung tâm Mã QR">
+          <span class="tag-badge" style="background:#0ea5e9;">QR HUB 2026</span>
+          <span class="coin-badge">🪙 1 Xu</span>
+          <div class="hover-overlay">
+            <button class="btn-overlay preview" onclick="openPreviewModal('qrhub')">👁️ Xem & Quét QR</button>
+            <a class="btn-overlay download" href="HINH_ANH_MINH_HOA/Hinh_13_Ma_QR_Minh_Chung_So_Va_Lo_Trinh_SKKN_2026.png" download>⬇️ Tải PNG</a>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-title">Powerpoint trình chiếu nội dung 011 – Hệ sinh thái 4 Mã QR Minh chứng số trực tuyến GitHub Pages</div>
+          <div class="product-meta">
+            <span class="author-box"><span class="author-dot">VN</span> Cô Vi Thị Nhung</span>
+            <span>Quét QR 100%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 8 -->
+      <div class="product-card" data-cat="2011" data-title="Hình nền Nhà Giáo Việt Nam 20/11 90 - Hội thi Vũ điệu Kết đoàn Bán trú">
+        <div class="product-image-box">
+          <img src="HINH_ANH_MINH_HOA/Hinh_08_San_khau_hoa_Ban_tru_CLB_Dan_ca_Thai.png" alt="Chào mừng 20/11">
+          <span class="tag-badge" style="background:#f43f5e;">LỄ 20/11 & 26/3</span>
+          <span class="coin-badge">🪙 1 Xu</span>
+          <div class="hover-overlay">
+            <button class="btn-overlay preview" onclick="openPreviewModal('2011')">👁️ Xem Trước</button>
+            <a class="btn-overlay download" href="HINH_ANH_MINH_HOA/Hinh_08_San_khau_hoa_Ban_tru_CLB_Dan_ca_Thai.png" download>⬇️ Tải Hình Nền</a>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-title">Hình nền Nhà Giáo Việt Nam 20/11 90 – Sân khấu hóa CLB "Giai điệu Bản Thái" Khu Nội trú</div>
+          <div class="product-meta">
+            <span class="author-box"><span class="author-dot">VP</span> Vũ trụ Powerpoint</span>
+            <span>Full HD 16:9</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: DANH MỤC NỔI BẬT (16 COLLECTIONS MATCHING VUTRUPOWERPOINT.VN) -->
+  <section class="home-category">
+    <div class="section-head">
+      <div>
+        <h2 class="home-category__title">✨ Danh mục nổi bật</h2>
+        <p class="home-category__subtitle">Các danh mục theo chủ đề trên Vũ trụ Powerpoint có thể bạn đang quan tâm (Bấm để lọc nhanh):</p>
+      </div>
+    </div>
+    <div class="home-category__list">
+      <div class="home-category__item" onclick="filterCards('morph')"><div class="home-category__card">🌀</div><p class="home-category__name">Powerpoint hiệu ứng ấn tượng - Tutorial</p></div>
+      <div class="home-category__item" onclick="filterCards('2011')"><div class="home-category__card">🏮</div><p class="home-category__name">Hình nền ngày lễ Trung Thu & 20/11</p></div>
+      <div class="home-category__item" onclick="filterCards('game')"><div class="home-category__card">🎮</div><p class="home-category__name">Powerpoint trò chơi</p></div>
+      <div class="home-category__item" onclick="filterCards('gvg')"><div class="home-category__card">🏆</div><p class="home-category__name">Powerpoint báo cáo biện pháp giáo viên giỏi</p></div>
+      <div class="home-category__item" onclick="filterCards('2011')"><div class="home-category__card">🎓</div><p class="home-category__name">Tổng kết năm học</p></div>
+      <div class="home-category__item" onclick="filterCards('all')"><div class="home-category__card">🔤</div><p class="home-category__name">Font Việt Hoá</p></div>
+      <div class="home-category__item" onclick="filterCards('ai3d')"><div class="home-category__card">🤖</div><p class="home-category__name">Robot AI 3D - Người Máy AI 3D</p></div>
+      <div class="home-category__item" onclick="filterCards('game')"><div class="home-category__card">🕹️</div><p class="home-category__name">Nút bấm game</p></div>
+      <div class="home-category__item" onclick="filterCards('all')"><div class="home-category__card">🧒</div><p class="home-category__name">Nhân vật hoạt hình</p></div>
+      <div class="home-category__item" onclick="filterCards('gvg')"><div class="home-category__card">🖼️</div><p class="home-category__name">Ảnh nền báo cáo biện pháp</p></div>
+      <div class="home-category__item" onclick="filterCards('morph')"><div class="home-category__card">🌈</div><p class="home-category__name">Hình nền Gradient - Backgrounds</p></div>
+      <div class="home-category__item" onclick="filterCards('all')"><div class="home-category__card">📅</div><p class="home-category__name">Thời khoá biểu</p></div>
+      <div class="home-category__item" onclick="filterCards('morph')"><div class="home-category__card">💫</div><p class="home-category__name">Vòng tròn ánh sáng</p></div>
+      <div class="home-category__item" onclick="filterCards('2011')"><div class="home-category__card">🎈</div><p class="home-category__name">Bóng bay</p></div>
+      <div class="home-category__item" onclick="filterCards('all')"><div class="home-category__card">🌤️</div><p class="home-category__name">Ảnh bầu trời</p></div>
+      <div class="home-category__item" onclick="filterCards('gvg')"><div class="home-category__card">📚</div><p class="home-category__name">Chồng sách (Khung bìa SKKN)</p></div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: BẢNG GIÁ & GÓI THÀNH VIÊN (/bang-gia) -->
+  <section class="pricing-section" id="pricingSection">
+    <div style="text-align:center;">
+      <span class="slide-badge">💎 BẢNG GIÁ & QUYỀN LỢI THÀNH VIÊN</span>
+      <h2 style="font-size:24px; color:#fff; margin-top:4px;">Chọn Gói Tài Nguyên Thiết Kế Slide Chuyên Nghiệp</h2>
+      <p style="color:#94a3b8; font-size:13.5px;">Tất cả học liệu thuộc đề tài SKKN Trường PTDTBT THCS Hữu Kiệm đều được mở miễn phí 100% cho Hội đồng chấm thi & Giáo viên</p>
+    </div>
+    <div class="billing-tabs">
+      <div class="billing-tab active" onclick="setBilling(1, this)">1 Tháng <span class="save-tag">Save 21%</span></div>
+      <div class="billing-tab" onclick="setBilling(3, this)">3 Tháng <span class="save-tag">Save 26%</span></div>
+      <div class="billing-tab" onclick="setBilling(6, this)">6 Tháng <span class="save-tag">Save 27%</span></div>
+      <div class="billing-tab" onclick="setBilling(12, this)">12 Tháng <span class="save-tag">Save 20%</span></div>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div>
+          <h3>Miễn phí (Free / Giáo viên Hữu Kiệm)</h3>
+          <p style="font-size:12.5px; color:#94a3b8;">Gói cơ bản & Mở toàn bộ học liệu SKKN</p>
+          <div class="price-amount">0đ <span style="font-size:13px; color:#94a3b8; font-weight:normal;">/ trọn đời</span></div>
+          <ul>
+            <li>✅ 10 lượt tải miễn phí / ngày</li>
+            <li>✅ Tải trọn bộ 27 Slide SKKN Âm nhạc Thái (.PPTX)</li>
+            <li>✅ Sử dụng Phòng thí nghiệm 3D Offline & Game Ô Chữ</li>
+            <li>✅ Tải Bộ Hồ sơ Hành chính NĐ 30/2020/NĐ-CP (.DOCX)</li>
+          </ul>
+        </div>
+        <a class="btn-cta" style="justify-content:center;" href="BAO_CAO_SKKN_AM_NHAC_DAN_CA_THAI_THCS_HUU_KIEM_VI_THI_NHUNG.pptx" download>⬇️ Tải Ngay Miễn Phí</a>
+      </div>
+
+      <div class="price-card popular">
+        <span class="popular-ribbon">⭐ ĐỀ XUẤT</span>
+        <div>
+          <h3>Member</h3>
+          <p style="font-size:12.5px; color:#94a3b8;">Gói nâng cấp với nhiều tiện ích cho Giáo viên</p>
+          <div class="price-amount" id="memberPrice">99.000đ <span style="font-size:13px; color:#94a3b8; font-weight:normal;">/ tháng</span></div>
+          <ul>
+            <li>✅ <b>50 lượt tải / ngày</b> trên kho 7.457+ mẫu</li>
+            <li>✅ Mở khóa toàn bộ Mẫu Báo cáo Biện pháp GVG</li>
+            <li>✅ Kho PowerPoint Trò chơi tương tác & Nút bấm Game</li>
+            <li>✅ Hỗ trợ xuất hóa đơn (+10% VAT)</li>
+          </ul>
+        </div>
+        <button class="btn-cta gold" style="justify-content:center;" onclick="openPreviewModal('skkn')">🚀 Trải Nghiệm Kho VIP</button>
+      </div>
+
+      <div class="price-card">
+        <div>
+          <h3>Member VIP</h3>
+          <p style="font-size:12.5px; color:#94a3b8;">Gói cao cấp với quyền truy cập đầy đủ</p>
+          <div class="price-amount" id="vipPrice">199.000đ <span style="font-size:13px; color:#94a3b8; font-weight:normal;">/ tháng</span></div>
+          <ul>
+            <li>✅ <b>200 lượt tải / ngày</b> toàn bộ kho VIP</li>
+            <li>✅ Truy cập Bộ sưu tập Robot AI 3D & Hiệu ứng Morph</li>
+            <li>✅ Khóa học thiết kế PowerPoint chuyên sâu nội bộ</li>
+            <li>✅ Hỗ trợ kỹ thuật ưu tiên qua Zalo / Fanpage</li>
+          </ul>
+        </div>
+        <button class="btn-cta outline" style="justify-content:center;" onclick="openPreviewModal('ai2422')">💎 Xem Quyền Lợi VIP</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- INTERACTIVE PREVIEW MODAL -->
+<div class="modal-backdrop" id="previewModal" onclick="if(event.target===this) closePreviewModal()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle" style="font-size:16px; color:#fde68a;">👁️ Trình Chiếu Tương Tác Trực Tiếp</h3>
+      <button onclick="closePreviewModal()" style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-stage" id="modalStage"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; flex-wrap:wrap; gap:10px;">
+        <span style="font-size:12.5px; color:#94a3b8;">💡 Chuẩn tỉ lệ Widescreen 16:9 – Tương thích PowerPoint 2019/2021/365 & trình duyệt Offline</span>
+        <div style="display:flex; gap:10px;">
+          <a class="btn-cta" href="slide.html">📊 Mở Full 27 Slide 3D</a>
+          <a class="btn-cta gold" href="BAO_CAO_SKKN_AM_NHAC_DAN_CA_THAI_THCS_HUU_KIEM_VI_THI_NHUNG.pptx" download>⬇️ Tải File .PPTX</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h4>🪐 Vũ Trụ PowerPoint – Phiên bản Học liệu SKKN Hữu Kiệm</h4>
+      <p>Cung cấp tài nguyên thiết kế Slide chuyên nghiệp, PowerPoint Game, Báo cáo biện pháp Giáo viên giỏi & Học liệu 3D Dân ca Thái (Trường PTDTBT THCS Hữu Kiệm).</p>
+    </div>
+    <div>
+      <h4>Danh mục trọng tâm</h4>
+      <ul>
+        <li>• Powerpoint báo cáo biện pháp giáo viên giỏi</li>
+        <li>• Powerpoint trò chơi (Giải Ô Chữ & Đoán điệu Khắp)</li>
+        <li>• Robot AI 3D – Chuyên đề AI QĐ 2422/QĐ-BGDĐT</li>
+        <li>• Hiệu ứng Morph & Ký âm Ngũ cung 3D</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Chính sách & Liên hệ</h4>
+      <ul>
+        <li>• Chính sách & Điều khoản chung (Clean-Room Craft Anything)</li>
+        <li>• Tác giả SKKN: Cô giáo Vi Thị Nhung – THCS Hữu Kiệm</li>
+        <li>• Cổng trực tuyến: cuongsmileks.github.io/skkn-huu-kiem</li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let curSlide = 0;
+  const slides = document.querySelectorAll('.slide-item');
+  const dots = document.querySelectorAll('.dot');
+
+  function setSlide(idx) {
+    slides[curSlide].classList.remove('active');
+    dots[curSlide].classList.remove('active');
+    curSlide = (idx + slides.length) % slides.length;
+    slides[curSlide].classList.add('active');
+    dots[curSlide].classList.add('active');
+  }
+  function changeSlide(dir) { setSlide(curSlide + dir); }
+  setInterval(() => changeSlide(1), 6500);
+
+  function filterCards(cat) {
+    document.querySelectorAll('.filter-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.cat === cat);
+    });
+    document.querySelectorAll('.product-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  function searchCards(q) {
+    const s = q.toLowerCase().trim();
+    document.querySelectorAll('.product-card').forEach(card => {
+      const t = (card.dataset.title || '').toLowerCase();
+      card.style.display = (!s || t.includes(s)) ? 'flex' : 'none';
+    });
+  }
+
+  function setBilling(months, el) {
+    document.querySelectorAll('.billing-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const mp = {1: '99.000đ', 3: '89.000đ', 6: '85.000đ', 12: '79.000đ'}[months];
+    const vp = {1: '199.000đ', 3: '179.000đ', 6: '169.000đ', 12: '159.000đ'}[months];
+    document.getElementById('memberPrice').innerHTML = mp + ' <span style="font-size:13px; color:#94a3b8; font-weight:normal;">/ tháng</span>';
+    document.getElementById('vipPrice').innerHTML = vp + ' <span style="font-size:13px; color:#94a3b8; font-weight:normal;">/ tháng</span>';
+  }
+
+  const modalData = {
+    skkn: {
+      title: '🏆 Mẫu Báo cáo Biện pháp GVG m001 – Cô giáo Vi Thị Nhung (THCS Hữu Kiệm)',
+      img: 'HINH_ANH_MINH_HOA/Hinh_18_Thuc_te_Truong_PTDTBT_THCS_Huu_Kiem_Va_Le_Hoi_Pu_Nha_Thau.png'
+    },
+    game: {
+      title: '🎮 PowerPoint Trò chơi: Giải Ô Chữ "Mật mã Di sản Thái" & Đoán Điệu Khắp',
+      img: 'HINH_ANH_MINH_HOA/Hinh_15_The_Luat_Choi_Doan_Dieu_Khap_Va_O_Chu.png'
+    },
+    ai2422: {
+      title: '🤖 Slide Chuyên đề AI cấp THCS theo Quyết định 2422/QĐ-BGDĐT (18/8/2026)',
+      img: 'HINH_ANH_MINH_HOA/Hinh_19_Ma_tran_Tich_hop_Chuyen_de_AI_QD2422_BGDDT_THCS_Huu_Kiem.png'
+    },
+    dko: {
+      title: '✨ Slide Hiệu ứng Morph: Bộ 3 Phương pháp Dalcroze – Kodály – Orff-Schulwerk',
+      img: 'HINH_ANH_MINH_HOA/Hinh_17_Phuong_phap_Dalcroze_Kodaly_Orff_Bo_Go_Co_The_Nghe_An.png'
+    },
+    gears: {
+      title: '⚙️ Slide Infographic: Mô hình Bánh răng Liên hoàn AI – STEM – Di sản Thái',
+      img: 'HINH_ANH_MINH_HOA/Hinh_14_So_do_Banh_Rang_AI_STEM_Am_Nhac_Thai.png'
+    },
+    midi: {
+      title: '🎹 Slide Ứng dụng CNTT: Phần mềm Soạn nhạc Encore, Cáp MIDI Transpose & 3D',
+      img: 'HINH_ANH_MINH_HOA/Hinh_16_Ung_dung_CNTT_Phan_mem_Am_nhac_MIDI_3D.png'
+    },
+    qrhub: {
+      title: '📱 Slide Trung tâm Minh chứng Kỹ thuật số (4 Mã QR GitHub Pages)',
+      img: 'HINH_ANH_MINH_HOA/Hinh_13_Ma_QR_Minh_Chung_So_Va_Lo_Trinh_SKKN_2026.png'
+    },
+    '2011': {
+      title: '💐 Hình nền 20/11 & Hội thi "Vũ điệu kết đoàn" CLB Bán trú THCS Hữu Kiệm',
+      img: 'HINH_ANH_MINH_HOA/Hinh_08_San_khau_hoa_Ban_tru_CLB_Dan_ca_Thai.png'
+    }
+  };
+
+  function openPreviewModal(key) {
+    const item = modalData[key] || modalData.skkn;
+    document.getElementById('modalTitle').innerText = item.title;
+    document.getElementById('modalStage').innerHTML = `<img src="${item.img}" style="max-width:100%; max-height:100%; border-radius:8px; object-fit:contain;">`;
+    document.getElementById('previewModal').classList.add('open');
+  }
+  function closePreviewModal() {
+    document.getElementById('previewModal').classList.remove('open');
+  }
+</script>
+</body>
+</html>
